@@ -20,7 +20,6 @@ public class UsersEntity {
     private String firstName;
     private String userName;
     private String lastName;
-    private String password;
 
 
 }
