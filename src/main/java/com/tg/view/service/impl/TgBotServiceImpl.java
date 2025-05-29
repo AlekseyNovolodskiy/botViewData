@@ -2,7 +2,6 @@ package com.tg.view.service.impl;
 
 import com.tg.view.entity.UserEntity;
 import com.tg.view.exception.InvalidTelegramAuthException;
-import com.tg.view.mapper.TgBotMapper;
 import com.tg.view.model.TelegramAuthRequest;
 import com.tg.view.model.TelegramUser;
 import com.tg.view.repositories.UserRepository;
@@ -23,7 +22,7 @@ import static java.util.Objects.isNull;
 public class TgBotServiceImpl implements TgBotService {
 
     private final UserRepository userRepository;
-    private final TgBotMapper mapper;
+
 
     @Value("${telegram.bot.token}")
     String botToken;
@@ -36,10 +35,9 @@ public class TgBotServiceImpl implements TgBotService {
         TelegramUser telegramUser = request.getUser();
 
         UserEntity byUserName = userRepository.findByUserName(telegramUser.getUsername());
-        if(isNull(byUserName)){
+        if (isNull(byUserName)) {
             registerUser(telegramUser);
         }
-
 
 
         return byUserName;
@@ -58,11 +56,6 @@ public class TgBotServiceImpl implements TgBotService {
         return usersEntity;
     }
 
-    //    private UsersEntity createNewUser(TelegramUser telegramUser) {
-//        UsersEntity user = new UsersEntity();
-//        user.setId(telegramUser.getId());
-//        return user;
-//    }
     private void validateAuthData(TelegramAuthRequest request) {
 
         String dataCheckString = buildDataCheckString(request);
@@ -71,10 +64,9 @@ public class TgBotServiceImpl implements TgBotService {
         String calculatedHash = new HmacUtils(HmacAlgorithms.HMAC_SHA_256, secretKey.getBytes())
                 .hmacHex(dataCheckString);
 
-//        if (!calculatedHash.equals(request.getHash())) {
-//            throw new InvalidTelegramAuthException("Invalid hash");
-//        }
-
+        if (!calculatedHash.equals(request.getHash())) {
+            throw new InvalidTelegramAuthException("Invalid hash");
+        }
 
     }
 
@@ -86,7 +78,6 @@ public class TgBotServiceImpl implements TgBotService {
                 .map(entry -> entry.getKey() + "=" + entry.getValue())
                 .collect(Collectors.joining("\n"));
     }
-
 
 }
 

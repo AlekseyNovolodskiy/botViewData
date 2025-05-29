@@ -19,30 +19,13 @@
             </div>
 
             <div class="mt-6 space-y-4">
-                <div>
-                    <p class="text-sm font-medium text-gray-500">Telegram ID</p>
-                    <p class="text-lg font-semibold" th:text="${user.telegramId}"></p>
-                </div>
 
-                <div th:if="${user.firstName}">
-                    <p class="text-sm font-medium text-gray-500">First Name</p>
-                    <p class="text-lg font-semibold" th:text="${user.firstName}"></p>
-                </div>
 
-                <div th:if="${user.lastName}">
-                    <p class="text-sm font-medium text-gray-500">Last Name</p>
-                    <p class="text-lg font-semibold" th:text="${user.lastName}"></p>
-                </div>
+                <p>First Name: <span th:text="${firstName}"></span></p>
+                <p>Last Name: <span th:text="${lastName}"></span></p>
+                <p>User Name: <span th:text="${userName}"></span></p>
 
-                <div th:if="${user.username}">
-                    <p class="text-sm font-medium text-gray-500">Username</p>
-                    <p class="text-lg font-semibold" th:text="'@' + ${user.username}"></p>
-                </div>
 
-                <div>
-                    <p class="text-sm font-medium text-gray-500">Last Login</p>
-                    <p class="text-lg font-semibold" th:text="${#temporals.format(user.lastLogin)}"></p>
-                </div>
             </div>
         </div>
     </div>
