@@ -1,9 +1,9 @@
 package com.tg.view.service;
 
-import com.tg.view.entity.UsersEntity;
-import com.tg.view.model.TelegramAuthDto;
+import com.tg.view.entity.UserEntity;
+import com.tg.view.model.TelegramAuthRequest;
 
 public interface TgBotService {
 
-    UsersEntity authenticate(TelegramAuthDto request);
+    UserEntity authenticate(TelegramAuthRequest request);
 }

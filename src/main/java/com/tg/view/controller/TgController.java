@@ -1,34 +1,25 @@
 package com.tg.view.controller;
 
-
-import com.tg.view.model.TelegramUser;
-import com.tg.view.service.TgBotService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-    @Controller
-    @RequiredArgsConstructor
-    public class TgController {
+@Controller // Не @RestController!
+@RequestMapping("/")
+public class TgController {
 
-        private final TgBotService telegramAuthService;
-
-
-        @PostMapping("/")
-        public String home(@RequestBody TelegramUser telegramUser,  Model model) {
-
-            if (telegramUser == null) {
-                return "exception";
-            }
-            model.addAttribute("user", telegramUser);
-            return "index";
+    @GetMapping
+    public String handleWebAppRequest(
+            @RequestParam(name = "tgWebAppData", required = false) String webAppData,
+            Model model
+    ) {
+        if (webAppData == null) {
+            model.addAttribute("message", "Данные WebApp не найдены!");
+            return "exception.html"; // Имя шаблона без .html
         }
-
-//        @PostMapping("/exception")
-//        public String exception() {
-//            return "exception";
-//        }
+        model.addAttribute("message", "Данные получены: " + webAppData);
+        return "index.html"; // Аналогично создайте success.html
     }
-
+}
